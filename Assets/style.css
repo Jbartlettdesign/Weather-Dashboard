@@ -1,0 +1,28 @@
+header{
+background: rgb(0,7,33);
+background: linear-gradient(90deg, rgba(0,7,33,1) 0%, rgba(48,9,121,1) 50%, rgba(0,212,255,1) 100%);
+margin: 0;
+height: 75px;
+}
+header h1{
+    color:white;
+    text-align: center;
+}
+.lightRain{
+    background-image: url("https://img.icons8.com/fluent/48/000000/light-rain.png");
+}
+.heavyRain{
+    background-image: url("https://img.icons8.com/fluent/48/000000/downpour.png");
+}
+.sunny{
+    background-image: url("https://img.icons8.com/fluent/48/000000/sun.png");
+}
+.snow{
+    background-image: url("https://img.icons8.com/fluent/48/000000/snow.png");
+}
+.lightning{
+    background-image: url("https://img.icons8.com/fluent/48/000000/storm.png");
+}
+.cloudy{
+    background-image: url("https://img.icons8.com/fluent/48/000000/partly-cloudy-day.png");
+}
