@@ -5,12 +5,43 @@ var lng;
 var part = "current,minutely,hourly,alerts";
 
 /***************geocode************/
-var citySearch = []
+var citySearch = [];
 var city;
 var cityValue = document.getElementById("city");
 var placeName = document.getElementById("cityButton");
+var left = document.getElementById("leftSide");
+var openedPage = true;
 /**********************************/
-console.log(localStorage.getItem("lastSearch"));
+        
+function addEntry(city) {
+    var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+if(existingEntries == null) {existingEntries = []; console.log("empty");}
+    
+    var testObject =[city];
+    localStorage.setItem('testObject', JSON.stringify(testObject));
+    existingEntries.push(testObject);
+    localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+    console.log(existingEntries.length);
+};
+
+function openPage(){
+    console.log("hello");
+    var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+if(existingEntries != null) {
+    console.log("hello2");
+    if(openedPage === true && existingEntries.length > 0){
+        openedPage = false;
+
+    for(var i = 0;i < existingEntries.length; i++){
+        var cityBlock = document.createElement("h3");
+        cityBlock.textContent = existingEntries[i];
+        left.appendChild(cityBlock);
+            }
+        }
+    }
+}
+
+/***********************************/
 function timeConverter(UNIX_timestamp){
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['1','2','3','4','5','6','7','8','9','10','11','12'];
@@ -36,14 +67,14 @@ fetch("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat="
         data.daily.forEach(element =>{
             /*console.log(element.dt);*/
             var date = timeConverter(element.dt);
-            console.log(date);
+            /*console.log(date);*/
             var tempDay = element.temp.day;
-            console.log(tempDay + " " + "°F");
+            /*console.log(tempDay + " " + "°F");
             console.log(element.wind_gust + " " + "mph");
             console.log(element.humidity);
             console.log(element.uvi);
             console.log(element.weather[0].description);
-            console.log("----------------")
+            console.log("----------------")*/
         });
 })
    .catch(function() {
@@ -69,8 +100,9 @@ placeName.addEventListener("click", function(event){
     console.log(cityValue.value);
     console.log("works");
     city = cityValue.value;
-
     findLatLong();
-    citySearch.push(city);
-    localStorage.setItem("lastSearch", citySearch)
+    
+    addEntry(city);
+    
 });
+openPage();
