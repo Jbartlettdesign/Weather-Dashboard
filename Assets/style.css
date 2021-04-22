@@ -14,6 +14,12 @@ header h1{
     font-size: 30px;
     padding-top: 15px;
 }
+h1{
+    font-weight: 800;
+    font-size: 20px;
+    
+    margin-top: 10px;
+}
 h3{
     background-color: rgb(216, 209, 209);
     margin-top: 15px;
@@ -23,6 +29,14 @@ h3{
 h2{
    font-weight: 900;
     font-size: 20px;
+}
+h4{
+    font-weight: 900;
+    font-size: 20px;
+}
+h5{
+    font-weight: 900;
+    font-size: 17px;
 }
 input{
     margin-top: 15px;
@@ -37,24 +51,7 @@ form{
     padding-bottom: 15px;
     border-bottom:rgb(216, 209, 209) solid 2px;
 }
-.lightRain{
-    background-image: url("https://img.icons8.com/fluent/48/000000/light-rain.png");
-}
-.heavyRain{
-    background-image: url("https://img.icons8.com/fluent/48/000000/downpour.png");
-}
-.sunny{
-    background-image: url("https://img.icons8.com/fluent/48/000000/sun.png");
-}
-.snow{
-    background-image: url("https://img.icons8.com/fluent/48/000000/snow.png");
-}
-.lightning{
-    background-image: url("https://img.icons8.com/fluent/48/000000/storm.png");
-}
-.cloudy{
-    background-image: url("https://img.icons8.com/fluent/48/000000/partly-cloudy-day.png");
-}
+
 .leftSide{
     margin-left: 10px;
     margin-top: 15px;
@@ -64,9 +61,33 @@ form{
     margin-top: 20px;
     
 }
+.bottom{
+    margin-right: 150px;
+    margin-top: 10px;
+}
 .currentWeather{
     border:black solid 1px;
     height: 200px;
     margin-right: 15px;
     
+}
+.futureForecast{
+    background-color: rgb(38, 56, 80);
+    color:white;
+    width: 50px;
+    margin-right: 20px;
+    margin-left: 11px;
+    height: auto;
+}
+.textInfoTop{
+    margin-left: 5px;
+    margin-top:10px
+}
+.textInfoBottom{
+    
+    margin-bottom:10px;
+}
+.sizeOfPic{
+width: 85px;
+height: 85px;
 }
