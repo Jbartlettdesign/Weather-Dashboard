@@ -6,7 +6,7 @@ var part = "current,minutely,hourly,alerts";
 var override = false;
 /***************geocode************/
 var butts = []
-
+prevCitySearch = false;
 var citySearch = [];
 var city;
 var cityValue = document.getElementById("city");
@@ -57,20 +57,18 @@ function runData(){
     console.log(topPart);
     }
 
-    console.log(cityValue.value);
+    
     console.log("works");
     if(override === false){
     city = cityValue.value;
-
+    console.log(cityValue.value);
 }else{
-
+    console.log(city);
     override = false;
     console.log("override");
 }
     findLatLong(city);
     
-    
-    /*addEntry(city);*/
     
 }/**************************************/
 
@@ -80,19 +78,61 @@ if(existingEntries == null) {existingEntries = []; console.log("empty");}
 if(existingEntries.length > 9){
     
     existingEntries.shift();
-    console.log(existingEntries);
+    /*console.log(existingEntries);*/
     }
-    var testObject =city;
+    var testObject = city;
     localStorage.setItem('testObject', JSON.stringify(testObject));
     existingEntries.push(testObject);
     localStorage.setItem("allEntries", JSON.stringify(existingEntries));
-    /*console.log(existingEntries.length);*/
+    /******************/
+    openPageAlready();
+    
 };
+/**********************/
+function openPageAlready(){
+    /*if(left.lastChild){
+        left.removeChild(left.lastChild);}*/
+    console.log("hello");
+    var thisEntry = JSON.parse(localStorage.getItem("testObject"));
+    console.log(thisEntry);
+    /*thisEntry.reverse();*/
+    /*console.log(thisEntry);*/
+if(thisEntry != null) {
+    console.log("hello2");
+
+    /*if(thisEntry.length > 0){
+        
+        
+    for(var i = 0; i < thisEntry.length; i++){*/
+        
+        var cityBlock = document.createElement("button");
+        
+        cityBlock.setAttribute("type", "click");
+        /*var string =("newCityButton" + i);
+        cityBlock.setAttribute("id", string);*/
+        cityBlock.textContent = thisEntry;
+        left.appendChild(cityBlock);
+        
+        cityBlock.addEventListener("click", function(event){
+            event.preventDefault();
+            console.log("hello from button 0");
+            city = thisEntry;
+            city = city.replace(/(^"|"$)/g, '');
+            console.log(city);
+            topPart = false;
+            override = true;
+            prevCitySearch = true;
+            runData();});
+            }    
+}
 
 function openPage(){
     butts = [];
     console.log("hello");
     var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+    /*console.log(existingEntries);*/
+    /*existingEntries.reverse();*/
+    /*console.log(existingEntries);*/
 if(existingEntries != null) {
     console.log("hello2");
     if(openedPage === true && existingEntries.length > 0){
@@ -118,6 +158,7 @@ if(existingEntries != null) {
                     console.log(city);
                     topPart = false;
                     override = true;
+                    prevCitySearch = true;
                     runData();});
                     }
                     
@@ -130,6 +171,7 @@ if(existingEntries != null) {
                     console.log(city);
                     topPart = false;
                     override = true;
+                    prevCitySearch = true;
                     runData();});
                     }
 
@@ -142,6 +184,7 @@ if(existingEntries != null) {
                     console.log(city);
                     topPart = false;
                     override = true;
+                    prevCitySearch = true;
                     runData();});
                     }
 
@@ -154,6 +197,7 @@ if(existingEntries != null) {
                             console.log(city);
                             topPart = false;
                             override = true;
+                            prevCitySearch = true;
                             runData();});
                             }
 
@@ -166,6 +210,7 @@ if(existingEntries != null) {
                             console.log(city);
                             topPart = false;
                             override = true;
+                            prevCitySearch = true;
                             runData();});
                             }
 
@@ -178,6 +223,7 @@ if(existingEntries != null) {
                             console.log(city);
                             topPart = false;
                             override = true;
+                            prevCitySearch = true;
                             runData();});
                             }
 
@@ -190,6 +236,7 @@ if(existingEntries != null) {
                                     console.log(city);
                                     topPart = false;
                                     override = true;
+                                    prevCitySearch = true;
                                     runData();});
                                     }
 
@@ -202,6 +249,7 @@ if(existingEntries != null) {
                                     console.log(city);
                                     topPart = false;
                                     override = true;
+                                    prevCitySearch = true;
                                     runData();});
                                     }
 
@@ -214,6 +262,7 @@ if(existingEntries != null) {
                                     console.log(city);
                                     topPart = false;
                                     override = true;
+                                    prevCitySearch = true;
                                     runData();});
                                     }
                                     else if(i === 9){
@@ -225,6 +274,7 @@ if(existingEntries != null) {
                                             console.log(city);
                                             topPart = false;
                                             override = true;
+                                            prevCitySearch = true;
                                             runData();});
                                             }
                                     
@@ -255,7 +305,7 @@ fetch("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat="
         return response.json()
 })
     .then(function(data){
-        console.log(data);
+        /*console.log(data);*/
         var i = 0;
         data.daily.forEach(element =>{
             /*console.log(element.dt);*/
@@ -291,6 +341,11 @@ fetch("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat="
             infoCityDiv.setAttribute("class", "textInfoTop");
             infoCityDiv.textContent = weatherInfo.infoCity;
             right.appendChild(infoCityDiv);
+            /************************/
+            infoWindDiv = document.createElement("p");
+            infoWindDiv.setAttribute("class", "textInfoTop");
+            infoWindDiv.textContent = "Wind:" + weatherInfo.wind[i] + " " + "MPH";
+            right.appendChild(infoWindDiv);
             /************************/
             infoTempDiv = document.createElement("p");
             infoTempDiv.setAttribute("class", "textInfoTop");
@@ -370,7 +425,7 @@ fetch("https://api.openweathermap.org/data/2.5/onecall?units=imperial&lat="
            }
         }
         );
-        console.log(weatherInfo);
+        /*console.log(weatherInfo);*/
 })
    .catch(function() {
         console.log("error");
@@ -389,7 +444,13 @@ fetch("https://api.opencagedata.com/geocode/v1/json?q=" + city + "&key=676832038
         console.log(data.results[0].geometry);
         lat = data.results[0].geometry.lat;
         lng = data.results[0].geometry.lng;
+        if(prevCitySearch === false){
         addEntry(city);
+        
+    }else{
+        prevCitySearch = false;
+    }
+
         findWeather();
         
 })
@@ -398,50 +459,15 @@ fetch("https://api.opencagedata.com/geocode/v1/json?q=" + city + "&key=676832038
         alert("You must enter a real location!");
         
 });
+
 }
 
-
-/*cityPrev.addEventListener("click", function(event){
-    event.preventDefault();
-    console.log(right.childNodes.length);
-    console.log(topPart);
-    if(topPart === false){
-        while(right.firstChild){
-            right.removeChild(right.firstChild);
-            weatherInfo = {
-                infoCity :[],
-                infoDate :[],
-                infoTemp :[],
-                infoHumid :[],
-                infoUv :[],
-                wind:[],
-                description:[],
-                icon:[]
-               };
-        }
-        while(bottom.firstChild){
-            bottom.removeChild(bottom.firstChild);
-            
-        }
-
-    topPart = true;
-    console.log(topPart);
-    }
-
-    console.log(cityValue.value);
-    console.log("works");
-    city = cityValue.value;
-    findLatLong(city);
-    
-    
-    /*addEntry(city);*/
-    
-/*});*/
 /****************************/
 
 placeName.addEventListener("click", function(event){
     event.preventDefault();
     runData();
+    
 });
 
 openPage();
